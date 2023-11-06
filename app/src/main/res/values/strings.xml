@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">memorygame</string>
+    <string name="Login">Login\n</string>
+    <string name="Register">Register\n</string>
+    <string name="Game">Game</string>
+</resources>

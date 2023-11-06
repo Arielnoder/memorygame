@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "260359244941",
+    "project_id": "newscenter-37967",
+    "storage_bucket": "newscenter-37967.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260359244941:android:6cdb60520701ef50fee6c4",
+        "android_client_info": {
+          "package_name": "com.example.memorygame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260359244941-3jq4sgm7ggdr4t31uopa4lfuav71ujh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyK6KDWaldBVqfBDVV3l4IfOaHKV-QK9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260359244941-3jq4sgm7ggdr4t31uopa4lfuav71ujh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260359244941:android:92396ed59145779ffee6c4",
+        "android_client_info": {
+          "package_name": "com.example.newscenter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260359244941-3jq4sgm7ggdr4t31uopa4lfuav71ujh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyK6KDWaldBVqfBDVV3l4IfOaHKV-QK9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260359244941-3jq4sgm7ggdr4t31uopa4lfuav71ujh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
