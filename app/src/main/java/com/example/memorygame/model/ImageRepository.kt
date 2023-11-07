@@ -66,8 +66,18 @@ class ImageRepository(private val imageDao: ImageDao) {
 
     @WorkerThread
 
-    suspend fun update(id: Int, isFlipped: Boolean) {
-        imageDao.updateIsFlipped(id, isFlipped)
+    suspend fun update(id: Int, isFlipped: Boolean, isMatched: Boolean) {
+        imageDao.update(id, isFlipped, isMatched)
+    }
+
+    // check if its matched
+
+    @Suppress("RedundantSuspendModifier")
+
+    @WorkerThread
+
+    fun isMatched(id: Int) : Boolean{
+        return imageDao.loadAllByIds(intArrayOf(id))[0].isMatched
     }
 
 

@@ -61,10 +61,12 @@ class MainActivity : ComponentActivity() {
             // each image should be in the array twice
             imageArray[i] = repository.getImageById(i + 1)
             imageArray[i + 6] = imageArray[i]
-            ImageViewModel(repository).updateImage(i+1, false)
-            Log.d("TAG", "ImageArray: ${imageArray[i]?.isFlipped}")
+            ImageViewModel(repository).updateImage(i+1, false, false)
         }
-                    NavHost(navController = navController, startDestination = Screen.Game.route) {
+        imageArray.shuffle()
+
+
+        NavHost(navController = navController, startDestination = Screen.Game.route) {
                 composable(Screen.LoginPage.route) {
                     LoginPage(navController = navController)
                 }
@@ -72,7 +74,7 @@ class MainActivity : ComponentActivity() {
                     Register(navController = navController)
                 }
                 composable(Screen.Game.route) {
-                    Game( repository = repository, navController = navController)
+                    Game( repository = repository, navController = navController, imageArray = imageArray)
                 }
 
 

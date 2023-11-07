@@ -33,8 +33,13 @@ class ImageViewModel(private val repository: ImageRepository) : ViewModel() {
    fun getImageById(id: Int) : Image{
        return  repository.getImageById(id)
    }
-    fun updateImage(id: Int, isFlipped: Boolean) = viewModelScope.launch {
-        repository.update(id, isFlipped)
+    fun updateImage(id: Int, isFlipped: Boolean, isMatched: Boolean) = viewModelScope.launch {
+        repository.update(id, isFlipped, isMatched)
+    }
+
+    // check if matched
+    fun isMatched(id: Int) : Boolean{
+        return repository.isMatched(id)
     }
 }
 
