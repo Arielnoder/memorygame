@@ -3,4 +3,6 @@
     <string name="Login">Login\n</string>
     <string name="Register">Register\n</string>
     <string name="Game">Game</string>
+    <string name="Home">Home</string>
+    <string name="LeaderBoard">LeaderBoard</string>
 </resources>

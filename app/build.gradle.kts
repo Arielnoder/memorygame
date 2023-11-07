@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -59,7 +57,7 @@ dependencies {
     val nav_version = "2.7.4"
     val room_version = "2.6.0"
     val lifecycle_version = "2.4.0"
-
+    implementation("com.google.firebase:firebase-firestore:24.9.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     implementation("androidx.core:core-ktx:1.9.0")

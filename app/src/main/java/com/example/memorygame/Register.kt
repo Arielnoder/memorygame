@@ -19,14 +19,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,8 +63,53 @@ fun Register(navController: NavHostController) {
             Button(
                 onClick = {
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(email.value.text, password.value.text)
+
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
+                                FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                                    email.value.text,
+                                    password.value.text
+                                ).addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        val db = Firebase.firestore
+                                        val user = FirebaseAuth.getInstance().currentUser
+                                        db.collection("users").document(user?.uid.toString())
+                                            .set(
+                                                hashMapOf(
+                                                    "email" to user?.email,
+
+                                                    "score" to 0
+
+
+                                                )
+
+                                            )
+                                            .addOnSuccessListener { documentReference ->
+                                                Log.d(
+                                                    "TAG",
+                                                    "DocumentSnapshot added with ID: ${user?.uid.toString()}"
+                                                )
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.w("TAG", "Error adding document", e)
+                                            }
+
+                                            .addOnSuccessListener { documentReference ->
+                                                Log.d(
+                                                    "TAG",
+                                                    "DocumentSnapshot added with ID: ${user?.uid.toString()}"
+                                                )
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.w("TAG", "Error adding document", e)
+                                            }
+                                        Log.d("Login", "signInWithEmail:success")
+                                        navController.navigate("Home")
+                                    } else {
+                                        Log.w("Login", "signInWithEmail:failure", it.exception)
+                                    }
+                                }
+
                                 Log.d("Register", "createUserWithEmail:success")
                             } else {
                                 Log.w("Register", "createUserWithEmail:failure", it.exception)

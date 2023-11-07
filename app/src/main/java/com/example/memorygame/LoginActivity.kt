@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,7 +14,6 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -33,13 +31,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-
+import com.google.firebase.firestore.firestore
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginPage(navController: NavHostController) {
+fun LoginPage(navController: NavHostController,) {
+    val db = Firebase.firestore
+
+
 
 
 
@@ -79,9 +81,19 @@ fun LoginPage(navController: NavHostController) {
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(
                         email.value.text,
                         password.value.text
+
                     ).addOnCompleteListener {
+
                         if (it.isSuccessful) {
+                            val user = FirebaseAuth.getInstance().currentUser
+
+
                             Log.d("Login", "Login Success")
+                            // if the user is in the collection then go to the game screen
+
+
+
+                            navController.navigate("Home")
 
                         } else {
                             Log.d("Login", "Login Failed")
