@@ -78,7 +78,11 @@ fun Register(navController: NavHostController) {
                                                 hashMapOf(
                                                     "email" to user?.email,
 
-                                                    "score" to 0
+                                                    "score" to 0,
+
+                                                    "background" to "https://i.imgur.com/m1NSWdL.png",
+
+                                                    "category" to "primeMinisters"
 
 
                                                 )

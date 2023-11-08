@@ -15,8 +15,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -34,6 +37,8 @@ import com.example.memorygame.model.ImageRepository
 fun Game(repository: ImageRepository, navController: NavController, imageArray: Array<Image?>) {
     val activity = LocalContext.current as Activity
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+
 
 
 
@@ -58,7 +63,7 @@ fun Game(repository: ImageRepository, navController: NavController, imageArray: 
                     Log.d("TAG", "isMatched: $isMatched")
                     val isCardSelected = selectedCards.contains(Pair(row, col))
                     val imageUrl = if (isCardSelected || isFlipped   ) image?.url
-                        ?: "" else "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png"
+                        ?: "" else ImageController(repository).getBackground()
                     if (!isMatched) {
                         Box(
                             modifier = Modifier

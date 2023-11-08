@@ -22,19 +22,19 @@ class ImageController(private val repository: ImageRepository) : ViewModel() {
     val user = FirebaseAuth.getInstance().currentUser
 
 
-
-
     fun insert(image: Image) = viewModelScope.launch {
         repository.insert(image)
     }
 
-    fun getImages() : LiveData<List<Image>> {
+    fun getImages(): LiveData<List<Image>> {
         return allImages
     }
-    fun getImageName(id: Int) : String{
+
+    fun getImageName(id: Int): String {
         return repository.getImageName(id)
     }
-    fun getImageUrl(id: Int) : String{
+
+    fun getImageUrl(id: Int): String {
         return repository.getImageUrl(id)
     }
 
@@ -42,19 +42,31 @@ class ImageController(private val repository: ImageRepository) : ViewModel() {
         repository.deleteAll()
     }
 
-    fun getImageById(id: Int) : Image {
-        return  repository.getImageById(id)
+    fun getImageById(id: Int): Image {
+        return repository.getImageById(id)
     }
+
     fun updateImage(id: Int, isFlipped: Boolean, isMatched: Boolean) = viewModelScope.launch {
         repository.update(id, isFlipped, isMatched)
     }
 
     // check if matched
-    fun isMatched(id: Int) : Boolean{
+    fun isMatched(id: Int): Boolean {
         return repository.isMatched(id)
     }
 
-    fun onCardClicked(selectedCards: MutableList<Pair<Int, Int>>, row: Int, col: Int, gridSize: Int, maxSelectedCards: Int, matchedCards: MutableList<Pair<Int, Int>>, imageArray: Array<Image?>, isCardSelected: Boolean, image: Image?,navController: NavController) {
+    fun onCardClicked(
+        selectedCards: MutableList<Pair<Int, Int>>,
+        row: Int,
+        col: Int,
+        gridSize: Int,
+        maxSelectedCards: Int,
+        matchedCards: MutableList<Pair<Int, Int>>,
+        imageArray: Array<Image?>,
+        isCardSelected: Boolean,
+        image: Image?,
+        navController: NavController
+    ) {
         if (selectedCards.size < maxSelectedCards && !isCardSelected) {
             ImageController(repository).updateImage(image?.id ?: 0, true, false)
             selectedCards.add(Pair(row, col))
@@ -66,7 +78,11 @@ class ImageController(private val repository: ImageRepository) : ViewModel() {
                         Log.d("TAG", "Match!")
                         // If they match, set the images to be matched
                         selectedCards.forEach { (r, c) ->
-                            ImageController(repository).updateImage(imageArray[r * 6 + c]?.id ?: 0, true, true)
+                            ImageController(repository).updateImage(
+                                imageArray[r * 6 + c]?.id ?: 0,
+                                true,
+                                true
+                            )
                         }
 
                         matchedCards.addAll(selectedCards)
@@ -78,7 +94,8 @@ class ImageController(private val repository: ImageRepository) : ViewModel() {
                                     if (document != null) {
                                         Log.d("TAG", "DocumentSnapshot data: ${document.data}")
                                         val score = document.data?.get("score").toString().toInt()
-                                        db.collection("users").document(user?.uid.toString()).update("score",score + 1  )
+                                        db.collection("users").document(user?.uid.toString())
+                                            .update("score", score + 1)
                                         navController.navigate("Home")
 
                                     } else {
@@ -91,9 +108,6 @@ class ImageController(private val repository: ImageRepository) : ViewModel() {
 // increase by // wait for all tasks to finish and then update score
 
 
-
-
-
                         }
 
 
@@ -101,7 +115,11 @@ class ImageController(private val repository: ImageRepository) : ViewModel() {
                         Log.d("TAG", "No Match!")
                         // If they don't match, flip the images back over
                         selectedCards.forEach { (r, c) ->
-                            ImageController(repository).updateImage(imageArray[r * 6 + c]?.id ?: 0, false, false)
+                            ImageController(repository).updateImage(
+                                imageArray[r * 6 + c]?.id ?: 0,
+                                false,
+                                false
+                            )
                         }
                     }
 
@@ -111,6 +129,53 @@ class ImageController(private val repository: ImageRepository) : ViewModel() {
         }
     }
 
+    // a function that returns a 2d array of strings that have the user emails and score using db
+    fun getLeaderBoard(callback: (String) -> Unit) {
+        val db = Firebase.firestore
+        val leaderBoard = StringBuilder()
+
+        db.collection("users")
+            .orderBy("score", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val name = document.data["email"].toString()
+                    val score = document.data["score"].toString()
+                    leaderBoard.append("$score | $name\n\n")
+                }
+                // Pass the leaderboard data to the callback function
+                callback(leaderBoard.toString())
+            }
+            .addOnFailureListener { exception ->
+                Log.d("TAG", "Error getting documents: ", exception)
+                // Handle the error here or pass an error message to the callback function
+                callback("Error getting leaderboard data")
+            }
+    }
+
+    fun getBackground(): String {
+        val db = Firebase.firestore
+        var background = ""
+        db.collection("users").document(user?.uid.toString()).get()
+            .addOnSuccessListener { result ->
+
+                    val url = oesult.data["background"].tostring()
+                    background = url
+
+
+                }
+
+
+        return background
+    }
+
 
 }
+
+
+
+
+
+
+
 

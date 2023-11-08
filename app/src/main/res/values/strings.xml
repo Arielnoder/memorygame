@@ -5,4 +5,7 @@
     <string name="Game">Game</string>
     <string name="Home">Home</string>
     <string name="LeaderBoard">LeaderBoard</string>
+    <string name="Settings">Settings</string>
+    <string name="Background">Background</string>
+    <string name="Categories">Categories</string>
 </resources>

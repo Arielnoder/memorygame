@@ -33,6 +33,10 @@ interface ImageDao {
     @Query("UPDATE image_table SET isFlipped = :isFlipped, isMatched = :isMatched WHERE id = :id")
     suspend fun update(id: Int, isFlipped: Boolean, isMatched: Boolean)
 
+    // update category
+    @Query("UPDATE image_table SET Category = :category WHERE id = :id")
+    suspend fun updateCategory(id: Int, category: String)
+
 
 
 }

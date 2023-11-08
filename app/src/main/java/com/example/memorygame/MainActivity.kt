@@ -53,6 +53,12 @@ class MainActivity : ComponentActivity() {
         val navController = rememberNavController()
         val database by lazy { ImageRoomDatabase.getDatabase(this) }
         val repository by lazy { ImageRepository(database.imageDao()) }
+        ImageController(repository).insert(Image(1, "https://i.imgur.com/SUmPQld.jpg", "rabin", false, false,"primeMinister"))
+        ImageController(repository).insert(Image(2, "https://i.imgur.com/2x9Y2Tv.jpg", "eshkol", false, false,"primeMinister"))
+        ImageController(repository).insert(Image(3, "https://i.imgur.com/v6N3Fme.jpg", "begin", false, false,"primeMinister"))
+        ImageController(repository).insert(Image(4, "https://i.imgur.com/izoSS0u.jpg", "davidbenguiron", false, false,"primeMinister"))
+        ImageController(repository).insert(Image(5, "https://i.imgur.com/IROrCCq.jpg", "golda", false, false,"primeMinister"))
+        ImageController(repository).insert(Image(6, "https://i.imgur.com/lb0vPwb.jpg", "sharat", false, false,"primeMinister"))
 
 
         val imageArray: Array<Image?> = arrayOfNulls<Image>(12)
@@ -65,7 +71,7 @@ class MainActivity : ComponentActivity() {
         }
 
 
-        NavHost(navController = navController, startDestination = Screen.LeaderBoard.route) {
+        NavHost(navController = navController, startDestination = Screen.LoginPage.route) {
                 composable(Screen.LoginPage.route) {
                     LoginPage(navController = navController)
                 }
@@ -79,8 +85,20 @@ class MainActivity : ComponentActivity() {
                     Home(navController = navController)
                 }
                 composable(Screen.LeaderBoard.route) {
-                    LeaderBoard(navController = navController)
+                    LeaderBoard(navController = navController, repository = repository)
                 }
+                composable(Screen.Settings.route) {
+                    Settings(navController = navController, repository = repository)
+                }
+                composable(Screen.Background.route) {
+                    Background(navController = navController, repository = repository)
+                }
+
+                composable(Screen.Categories.route) {
+                    Categories(navController = navController, repository = repository)
+                }
+
+
 
 
             }

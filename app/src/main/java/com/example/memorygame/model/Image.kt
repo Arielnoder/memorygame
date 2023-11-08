@@ -14,5 +14,8 @@ val name: String,
 @ColumnInfo(name = "isFlipped")
 var isFlipped: Boolean = false,
 @ColumnInfo(name = "isMatched")
-var isMatched: Boolean = false
+var isMatched: Boolean = false,
+@ColumnInfo(name = "Category")
+val Category: String
+
 )

@@ -14,6 +14,12 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int) {
 
     object LeaderBoard : Screen("LeaderBoard", resourceId = R.string.LeaderBoard)
 
+    object Settings : Screen("Settings", resourceId = R.string.Settings)
+
+    object Background : Screen("Background", resourceId = R.string.Background)
+
+    object Categories : Screen("Categories", resourceId = R.string.Categories)
+
 
 
 
